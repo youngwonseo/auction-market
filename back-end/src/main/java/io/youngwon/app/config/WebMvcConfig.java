@@ -1,4 +1,4 @@
-package io.youngwon.app.config.mvc;
+package io.youngwon.app.config;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
@@ -10,8 +10,6 @@ import java.util.List;
 @RequiredArgsConstructor
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
-
-
 
 
 }

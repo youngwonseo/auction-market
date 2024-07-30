@@ -1,17 +1,24 @@
 package io.youngwon.app.domain.comments.domain;
 
-import io.youngwon.app.domain.BaseTimeEntity;
-import io.youngwon.app.domain.products.domain.Product;
-import io.youngwon.app.domain.users.domain.User;
+import io.youngwon.app.domain.products.entity.Product;
+import io.youngwon.app.domain.users.entity.User;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
-import javax.persistence.*;
+import java.time.LocalDateTime;
+
 
 @Getter
 @NoArgsConstructor
 @Entity
-public class Comments extends BaseTimeEntity {
+public class Comments {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,6 +32,11 @@ public class Comments extends BaseTimeEntity {
     @ManyToOne
     private User writer;
 
+    @CreatedDate
+    private LocalDateTime createdAt;
+
+    @LastModifiedDate
+    private LocalDateTime updatedAt;
 
     public Comments(String content, Product products) {
         this.content = content;
@@ -34,5 +46,4 @@ public class Comments extends BaseTimeEntity {
     public void update(String content) {
         this.content = content;
     }
-
 }

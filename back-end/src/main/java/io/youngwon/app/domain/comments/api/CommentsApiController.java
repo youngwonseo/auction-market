@@ -21,7 +21,7 @@ public class CommentsApiController {
     private final CommentsService commentsService;
 
     @GetMapping("{id}/comments")
-    public ApiResult<List<CommentsListResponseDto>> findByProduct(@PathVariable Long id){
+    public ApiResult<List<CommentsListResponseDto>> findByProduct(@PathVariable Long id) {
         return success(commentsService.findByProduct(id));
     }
 

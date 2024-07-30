@@ -11,7 +11,7 @@ public class SearchCriteria {
     private Object value;
 
 
-    public boolean isOrPredicate(){
+    public boolean isOrPredicate() {
         return true;
     }
 

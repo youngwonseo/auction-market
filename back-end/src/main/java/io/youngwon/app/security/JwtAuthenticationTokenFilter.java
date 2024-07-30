@@ -1,5 +1,12 @@
 package io.youngwon.app.security;
 
+import io.youngwon.app.exception.NotImplementedException;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.GrantedAuthority;
@@ -8,12 +15,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.web.filter.GenericFilterBean;
 
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -24,7 +25,6 @@ import java.util.regex.Pattern;
 
 import static java.util.Objects.nonNull;
 import static java.util.stream.Collectors.toList;
-import static org.apache.commons.lang3.ObjectUtils.isNotEmpty;
 
 public class JwtAuthenticationTokenFilter extends GenericFilterBean {
 
@@ -44,38 +44,40 @@ public class JwtAuthenticationTokenFilter extends GenericFilterBean {
     @Override
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain)
             throws IOException, ServletException {
-        HttpServletRequest request = (HttpServletRequest) req;
-        HttpServletResponse response = (HttpServletResponse) res;
-
-        if (SecurityContextHolder.getContext().getAuthentication() == null) {
-            String authorizationToken = obtainAuthorizationToken(request);
-
-
-            if (authorizationToken != null) {
-                try {
-                    Jwt.Claims claims = verify(authorizationToken);
-                    log.debug("Jwt parse result: {}", claims);
-
-                    Long userKey = claims.userKey;
-                    String name = claims.name;
-                    List<GrantedAuthority> authorities = obtainAuthorities(claims);
-
-                    if (nonNull(userKey) && isNotEmpty(name) && authorities.size() > 0) {
-                        JwtAuthenticationToken authentication =
-                                new JwtAuthenticationToken(new JwtAuthentication(userKey, name), authorities);
-                        authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                        SecurityContextHolder.getContext().setAuthentication(authentication);
-                    }
-                } catch (Exception e) {
-                    log.warn("Jwt processing failed: {}", e.getMessage());
-                }
-            }
-        } else {
-            log.debug("SecurityContextHolder not populated with security token, as it already contained: '{}'",
-                    SecurityContextHolder.getContext().getAuthentication());
-        }
-
-        chain.doFilter(request, response);
+        throw new NotImplementedException();
+//
+//        HttpServletRequest request = (HttpServletRequest) req;
+//        HttpServletResponse response = (HttpServletResponse) res;
+//
+//        if (SecurityContextHolder.getContext().getAuthentication() == null) {
+//            String authorizationToken = obtainAuthorizationToken(request);
+//
+//
+//            if (authorizationToken != null) {
+//                try {
+//                    Jwt.Claims claims = verify(authorizationToken);
+//                    log.debug("Jwt parse result: {}", claims);
+//
+//                    Long userKey = claims.userKey;
+//                    String name = claims.name;
+//                    List<GrantedAuthority> authorities = obtainAuthorities(claims);
+//
+//                    if (nonNull(userKey) && isNotEmpty(name) && authorities.size() > 0) {
+//                        JwtAuthenticationToken authentication =
+//                                new JwtAuthenticationToken(new JwtAuthentication(userKey, name), authorities);
+//                        authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+//                        SecurityContextHolder.getContext().setAuthentication(authentication);
+//                    }
+//                } catch (Exception e) {
+//                    log.warn("Jwt processing failed: {}", e.getMessage());
+//                }
+//            }
+//        } else {
+//            log.debug("SecurityContextHolder not populated with security token, as it already contained: '{}'",
+//                    SecurityContextHolder.getContext().getAuthentication());
+//        }
+//
+//        chain.doFilter(request, response);
     }
 
 

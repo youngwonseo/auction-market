@@ -1,4 +1,4 @@
-= RESTful Notes API Guide
+= Auction-Market API Documentations
 :doctype: book
 :icons: font
 :source-highlighter: highlightjs
@@ -9,11 +9,30 @@
 :sectanchors:
 
 [[api]]
-== Book Api
-api 에 관련된 설명을 이곳에 적습니다.
 
-include::{snippets}/product-save/curl-request.adoc[]
+== 카테고리 API
+
+include::{snippets}/category-save/http-request.adoc[]
+include::{snippets}/category-save/request-fields.adoc[]
+include::{snippets}/category-save/http-response.adoc[]
+include::{snippets}/category-save/response-fields.adoc[]
+
+== 상품 API
+
 include::{snippets}/product-save/http-request.adoc[]
-include::{snippets}/product-save/path-parameters.adoc[]
+include::{snippets}/product-save/request-fields.adoc[]
 include::{snippets}/product-save/http-response.adoc[]
 include::{snippets}/product-save/response-fields.adoc[]
+
+
+
+
+
+
+== 댓글 Api
+
+
+
+== 좋아요 Api
+
+

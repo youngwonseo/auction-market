@@ -1,8 +1,10 @@
 package io.youngwon.app.security;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import java.io.Serializable;
 
-public class JwtAuthentication {
+import static lombok.Lombok.checkNotNull;
+
+public class JwtAuthentication implements Serializable {
 
     public final Long id;
 

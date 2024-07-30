@@ -7,11 +7,9 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import io.youngwon.app.exception.NotImplementedException;
 import lombok.Getter;
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
 
-import java.util.Arrays;
 import java.util.Date;
 
 
@@ -56,7 +54,6 @@ public final class Jwt {
     public Claims verify(String token) throws JWTVerificationException {
         return new Claims(jwtVerifier.verify(token));
     }
-
 
 
     static public class Claims {
@@ -111,13 +108,14 @@ public final class Jwt {
 
         @Override
         public String toString() {
-            return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
-                    .append("userKey", userKey)
-                    .append("name", name)
-                    .append("roles", Arrays.toString(roles))
-                    .append("iat", iat)
-                    .append("exp", exp)
-                    .toString();
+            throw new NotImplementedException();
+//            return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
+//                    .append("userKey", userKey)
+//                    .append("name", name)
+//                    .append("roles", Arrays.toString(roles))
+//                    .append("iat", iat)
+//                    .append("exp", exp)
+//                    .toString();
         }
     }
 

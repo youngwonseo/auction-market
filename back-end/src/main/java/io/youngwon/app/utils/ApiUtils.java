@@ -1,7 +1,6 @@
 package io.youngwon.app.utils;
 
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
+import io.youngwon.app.exception.NotImplementedException;
 import org.springframework.http.HttpStatus;
 
 public class ApiUtils {
@@ -41,10 +40,11 @@ public class ApiUtils {
 
         @Override
         public String toString() {
-            return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
-                    .append("message", message)
-                    .append("status", status)
-                    .toString();
+            throw new NotImplementedException();
+//            return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
+//                    .append("message", message)
+//                    .append("status", status)
+//                    .toString();
         }
     }
 
@@ -73,11 +73,12 @@ public class ApiUtils {
 
         @Override
         public String toString() {
-            return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
-                    .append("success", success)
-                    .append("response", response)
-                    .append("error", error)
-                    .toString();
+            throw new NotImplementedException();
+//            return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
+//                    .append("success", success)
+//                    .append("response", response)
+//                    .append("error", error)
+//                    .toString();
         }
     }
 }

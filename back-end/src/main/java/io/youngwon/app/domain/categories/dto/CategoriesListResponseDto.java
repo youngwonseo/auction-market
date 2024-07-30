@@ -1,6 +1,6 @@
 package io.youngwon.app.domain.categories.dto;
 
-import io.youngwon.app.domain.categories.domain.Categories;
+import io.youngwon.app.domain.products.entity.Categories;
 import lombok.Getter;
 
 import java.util.List;

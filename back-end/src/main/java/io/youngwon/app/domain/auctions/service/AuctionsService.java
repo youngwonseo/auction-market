@@ -1,14 +1,14 @@
 package io.youngwon.app.domain.auctions.service;
 
 import io.youngwon.app.config.errors.NotFoundException;
-import io.youngwon.app.domain.auctions.domain.Auctions;
-import io.youngwon.app.domain.auctions.domain.AuctionsRepository;
-import io.youngwon.app.domain.products.domain.Product;
-import io.youngwon.app.domain.products.dao.ProductsRepository;
-import io.youngwon.app.domain.users.domain.User;
-import io.youngwon.app.domain.auctions.dto.AuctionsListResponseDto;
-import io.youngwon.app.domain.auctions.dto.AuctionsResponseDto;
-import io.youngwon.app.domain.auctions.dto.AuctionsEnterRequestDto;
+import io.youngwon.app.domain.auctions.entity.Auctions;
+import io.youngwon.app.domain.auctions.repository.AuctionsRepository;
+import io.youngwon.app.domain.products.entity.Product;
+import io.youngwon.app.domain.products.repository.ProductsRepository;
+import io.youngwon.app.domain.users.entity.User;
+import io.youngwon.app.api.dto.AuctionsListResponseDto;
+import io.youngwon.app.api.dto.AuctionsResponseDto;
+import io.youngwon.app.api.dto.AuctionsEnterRequestDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -27,8 +27,8 @@ public class AuctionsService {
 
 
     @Transactional
-    public List<AuctionsListResponseDto> enter(Long id, AuctionsEnterRequestDto requestDto, Long userId){
-        Product products =  productsRepository
+    public List<AuctionsListResponseDto> enter(Long id, AuctionsEnterRequestDto requestDto, Long userId) {
+        Product products = productsRepository
                 .findById(id)
                 .orElseThrow(() -> new NotFoundException("Could not found product for " + id));
 
@@ -40,8 +40,8 @@ public class AuctionsService {
 
 
     @Transactional
-    public AuctionsResponseDto cancel(Long id, Long auctionId){
-        Product products =  productsRepository
+    public AuctionsResponseDto cancel(Long id, Long auctionId) {
+        Product products = productsRepository
                 .findById(id)
                 .orElseThrow(() -> new NotFoundException("Could not found product for " + id));
 
@@ -49,12 +49,12 @@ public class AuctionsService {
 //                .orElseThrow(() -> new NotFoundException("Could not found auction for " + requestDto.getAuctoinsId()));
 
         // 자신의 입찰이 가장 상위에 존재하면
-        if(products.getAuctions().size() > 0 &&
-                products.getAuctions().get(0).getId() == auctionId){
+        if (products.getAuctions().size() > 0 &&
+                products.getAuctions().get(0).getId() == auctionId) {
             products.getAuctions().get(0).cancel();
         }
 
-        if(products.getAuctions().size() > 1){
+        if (products.getAuctions().size() > 1) {
             return new AuctionsResponseDto(products.getAuctions().get(1));
         }
 
@@ -62,13 +62,12 @@ public class AuctionsService {
     }
 
 
-
-
     @Transactional
-    public void deleteAll(){
+    public void deleteAll() {
 
 
-        auctionsRepository.deleteAll();;
+        auctionsRepository.deleteAll();
+        ;
 
     }
 

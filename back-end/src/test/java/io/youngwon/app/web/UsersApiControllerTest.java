@@ -1,7 +1,6 @@
 package io.youngwon.app.web;
 
-import io.youngwon.app.domain.users.domain.User;
-import io.youngwon.app.domain.users.domain.UsersRepository;
+import io.youngwon.app.domain.users.repository.UsersRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
@@ -10,14 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.core.annotation.Order;
-import org.springframework.http.MediaType;
-import org.springframework.security.test.context.support.WithUserDetails;
-import org.springframework.test.context.transaction.AfterTransaction;
 import org.springframework.test.context.transaction.BeforeTransaction;
-
-import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -29,7 +21,6 @@ public class UsersApiControllerTest extends SpringMockMvcTestSupport {
     private UsersRepository usersRepository;
 
 
-
     @BeforeTransaction
     public void accountSetup() {
 //        User user = usersRepository.save(User.builder()
@@ -37,7 +28,6 @@ public class UsersApiControllerTest extends SpringMockMvcTestSupport {
 //                .name("서영원")
 //                .build());
     }
-
 
 
     @Test

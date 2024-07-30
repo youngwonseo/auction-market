@@ -1,6 +1,6 @@
 package io.youngwon.app.security;
 
-import io.youngwon.app.domain.users.domain.Role;
+import io.youngwon.app.domain.users.entity.Role;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.test.context.support.WithSecurityContextFactory;

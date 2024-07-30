@@ -1,7 +1,7 @@
 package io.youngwon.app.config.auth.dto;
 
-import io.youngwon.app.domain.users.domain.Role;
-import io.youngwon.app.domain.users.domain.User;
+import io.youngwon.app.domain.users.entity.Role;
+import io.youngwon.app.domain.users.entity.User;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -29,7 +29,7 @@ public class OAuthAttributes {
     public static OAuthAttributes of(String registrationId, String userNameAttributeName, Map<String, Object> attributes) {
 
         System.out.println(registrationId);
-        if("naver".equals(registrationId)) {
+        if ("naver".equals(registrationId)) {
             return ofNaver("id", attributes);
         }
 

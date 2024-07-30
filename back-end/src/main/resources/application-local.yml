@@ -1,0 +1,26 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+    properties:
+      hibernate:
+        default_batch_fetch_size: 1000
+  datasource:
+    hikari:
+      jdbc-url: jdbc:mysql://localhost:3306/auction?useSSL=false&allowPublicKeyRetrieval=true&characterEncoding=UTF-8
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      maximum-pool-size: 10
+      max-lifetime: 30000
+      connection-timeout: 3000
+      username: auction
+      password: 1234
+  redis:
+    host: localhost
+    port: 6379
+jwt:
+  token:
+    header: Authorization
+    issuer: youngwonseo
+    client-secret: secret
+    expiry-seconds: 0

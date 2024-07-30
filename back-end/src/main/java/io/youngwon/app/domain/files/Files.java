@@ -1,12 +1,17 @@
 package io.youngwon.app.domain.files;
 
-import io.youngwon.app.domain.BaseTimeEntity;
-import io.youngwon.app.domain.products.domain.Product;
-import io.youngwon.app.domain.products.dto.ProductsSaveRequestDto;
+import io.youngwon.app.domain.products.entity.Product;
+import io.youngwon.app.api.dto.ProductsSaveRequestDto;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+
 import java.nio.file.Paths;
 import java.util.Base64;
 import java.util.UUID;
@@ -15,7 +20,7 @@ import java.util.regex.Pattern;
 @Getter
 @NoArgsConstructor
 @Entity
-public class Files extends BaseTimeEntity {
+public class Files {
 
     private static final String BASE64_HEADER_EXP = "^data:[^/]+/([^;]+);base64,";
     private static final Pattern PATTERN_BASE64_HEADER = Pattern.compile(BASE64_HEADER_EXP);
@@ -40,8 +45,6 @@ public class Files extends BaseTimeEntity {
         this.products = products;
 
 
-
-
         byte[] bytes = Base64
                 .getDecoder()
                 .decode(image.getDataURL().substring(image.getDataURL().indexOf(",") + 1));
@@ -52,10 +55,9 @@ public class Files extends BaseTimeEntity {
 //            String extension = base64HeaderMatcher.group(1);
 
             java.nio.file.Files.write(Paths.get(path, filename), bytes);
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
-
 
 
     }

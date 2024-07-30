@@ -1,7 +1,6 @@
 package io.youngwon.app.security;
 
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
+import io.youngwon.app.exception.NotImplementedException;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 
@@ -51,10 +50,11 @@ public class JwtAuthenticationToken extends AbstractAuthenticationToken {
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
-                .append("principal", principal)
-                .append("credentials", "[PROTECTED]")
-                .toString();
+        throw new NotImplementedException();
+//        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
+//                .append("principal", principal)
+//                .append("credentials", "[PROTECTED]")
+//                .toString();
     }
 
 

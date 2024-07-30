@@ -1,9 +1,10 @@
 package io.youngwon.app.security;
 
 import io.youngwon.app.config.errors.NotFoundException;
-import io.youngwon.app.domain.users.domain.Role;
-import io.youngwon.app.domain.users.domain.User;
-import io.youngwon.app.domain.users.domain.UsersRepository;
+import io.youngwon.app.domain.users.entity.Role;
+import io.youngwon.app.domain.users.entity.User;
+import io.youngwon.app.domain.users.repository.UsersRepository;
+import io.youngwon.app.exception.NotImplementedException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataAccessException;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -13,7 +14,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-import static org.apache.commons.lang3.ClassUtils.isAssignable;
 import static org.springframework.security.core.authority.AuthorityUtils.createAuthorityList;
 
 @RequiredArgsConstructor
@@ -52,9 +52,9 @@ public class JwtAuthenticationProvider implements AuthenticationProvider {
 
     @Override
     public boolean supports(Class<?> authentication) {
-        return isAssignable(JwtAuthenticationToken.class, authentication);
+        throw new NotImplementedException();
+//        return isAssignable(JwtAuthenticationToken.class, authentication);
     }
-
 
 
 }

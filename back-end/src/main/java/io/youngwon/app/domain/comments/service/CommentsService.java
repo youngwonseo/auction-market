@@ -4,8 +4,8 @@ package io.youngwon.app.domain.comments.service;
 import io.youngwon.app.config.errors.NotFoundException;
 import io.youngwon.app.domain.comments.domain.Comments;
 import io.youngwon.app.domain.comments.dao.CommentsRepository;
-import io.youngwon.app.domain.products.domain.Product;
-import io.youngwon.app.domain.products.dao.ProductsRepository;
+import io.youngwon.app.domain.products.entity.Product;
+import io.youngwon.app.domain.products.repository.ProductsRepository;
 import io.youngwon.app.domain.comments.dto.CommentsListResponseDto;
 import io.youngwon.app.domain.comments.dto.CommentsSaveRequestDto;
 import io.youngwon.app.domain.comments.dto.CommentsUpdateRequestDto;
@@ -24,8 +24,8 @@ public class CommentsService {
     private final CommentsRepository commentsRepository;
 
     @Transactional(readOnly = true)
-    public List<CommentsListResponseDto> findByProduct(Long id){
-        Product products =  productsRepository
+    public List<CommentsListResponseDto> findByProduct(Long id) {
+        Product products = productsRepository
                 .findById(id)
                 .orElseThrow(() -> new NotFoundException("Could not found product for " + id));
 
@@ -33,10 +33,9 @@ public class CommentsService {
     }
 
 
-
     @Transactional
-    public Long save(Long productId, CommentsSaveRequestDto requestDto){
-        Product products =  productsRepository
+    public Long save(Long productId, CommentsSaveRequestDto requestDto) {
+        Product products = productsRepository
                 .findById(productId)
                 .orElseThrow(() -> new NotFoundException("Could not found product for " + productId));
 
@@ -45,8 +44,8 @@ public class CommentsService {
     }
 
     @Transactional
-    public Long update(Long productId, Long commentsid, CommentsUpdateRequestDto requestDto){
-        Product products =  productsRepository
+    public Long update(Long productId, Long commentsid, CommentsUpdateRequestDto requestDto) {
+        Product products = productsRepository
                 .findById(productId)
                 .orElseThrow(() -> new NotFoundException("Could not found product for " + productId));
 
@@ -63,7 +62,7 @@ public class CommentsService {
 
 
     @Transactional
-    public Long delete(Long productId, Long commentsid){
+    public Long delete(Long productId, Long commentsid) {
         Comments comments = commentsRepository.findById(commentsid)
                 .orElseThrow(() -> new NotFoundException("Could not found comment for " + commentsid));
 

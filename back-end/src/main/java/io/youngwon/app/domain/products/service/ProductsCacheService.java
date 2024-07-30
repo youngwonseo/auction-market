@@ -1,2 +1,4 @@
-package io.youngwon.app.domain.products.service;public class ProductCacheService {
+package io.youngwon.app.domain.products.service;
+
+public class ProductsCacheService {
 }

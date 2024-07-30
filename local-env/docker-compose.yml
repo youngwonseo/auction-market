@@ -1,0 +1,17 @@
+version: '3'
+services:
+  mysql:
+    image: mysql
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_DATABASE=auction
+      - MYSQL_USER=auction
+      - MYSQL_PASSWORD=1234
+      - MYSQL_ROOT_PASSWORD=1234
+      - MYSQL_ROOT_HOST=%
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+    volumes:
+      - ./mysql:/var/lib/mysql

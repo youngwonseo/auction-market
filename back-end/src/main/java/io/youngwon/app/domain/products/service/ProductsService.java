@@ -1,11 +1,17 @@
 package io.youngwon.app.domain.products.service;
 
 
+import io.youngwon.app.api.dto.ProductsListResponseDto;
+import io.youngwon.app.api.dto.ProductsListStateResponseDto;
+import io.youngwon.app.api.dto.ProductsResponseDto;
+import io.youngwon.app.api.dto.ProductsSaveRequestDto;
+import io.youngwon.app.api.dto.ProductsStateType;
+import io.youngwon.app.api.dto.ProductsUpdateRequestDto;
 import io.youngwon.app.config.errors.NotFoundException;
-import io.youngwon.app.domain.categories.domain.Categories;
-import io.youngwon.app.domain.products.domain.Product;
-import io.youngwon.app.domain.products.dao.ProductsRepository;
-import io.youngwon.app.domain.products.dto.*;
+import io.youngwon.app.domain.products.entity.Categories;
+import io.youngwon.app.domain.products.entity.Product;
+import io.youngwon.app.domain.products.repository.ProductsRepository;
+import io.youngwon.app.exception.NotImplementedException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -57,33 +63,35 @@ public class ProductsService {
 
     @Transactional(readOnly = true)
     public List<ProductsListStateResponseDto> findAllForStartCheck(LocalDateTime now) {
-        return productsRepository
-                .findAllForStartCheck(now)
-                .stream()
-                .map(ProductsListStateResponseDto::new)
-                .collect(Collectors.toList());
+        throw new NotImplementedException();
+//        return productsRepository
+//                .findAllForStartCheck(now)
+//                .stream()
+//                .map(ProductsListStateResponseDto::new)
+//                .collect(Collectors.toList());
     }
 
 
     @Transactional(readOnly = true)
     public List<ProductsListStateResponseDto> findAllForEndCheck(LocalDateTime now) {
-        return productsRepository
-                .findAllForEndCheck(now)
-                .stream()
-                .map(ProductsListStateResponseDto::new)
-                .collect(Collectors.toList());
+        throw new NotImplementedException();
+//        return productsRepository
+//                .findAllForEndCheck(now)
+//                .stream()
+//                .map(ProductsListStateResponseDto::new)
+//                .collect(Collectors.toList());
     }
 
     @Transactional
-    public Long updateState(Long id, ProductsStateType type){
+    public Long updateState(Long id, ProductsStateType type) {
 
         Product products = productsRepository
                 .findById(id)
                 .orElseThrow(() -> new NotFoundException("Could not found product for " + id));
 
-        if(type == ProductsStateType.SELLING){
+        if (type == ProductsStateType.SELLING) {
             products.onSale();
-        }else if(type == ProductsStateType.FINISH){
+        } else if (type == ProductsStateType.FINISH) {
             products.finish();
         }
 
@@ -111,8 +119,6 @@ public class ProductsService {
 
         return id;
     }
-
-
 
 
 //    @Transactional

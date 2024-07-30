@@ -1,6 +1,6 @@
 package io.youngwon.app.config.auth.dto;
 
-import io.youngwon.app.domain.users.domain.User;
+import io.youngwon.app.domain.users.entity.User;
 import lombok.Getter;
 
 import java.io.Serializable;
@@ -11,7 +11,7 @@ public class SessionUser implements Serializable {
     private String name;
     private String email;
 
-    public SessionUser(User user){
+    public SessionUser(User user) {
         this.id = user.getId();
         this.name = user.getName();
         this.email = user.getEmail();

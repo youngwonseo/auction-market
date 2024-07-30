@@ -1,6 +1,7 @@
 package io.youngwon.app.config.errors;
 
 import io.youngwon.app.utils.ApiUtils;
+import jakarta.validation.ConstraintViolationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
@@ -14,8 +15,6 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
-import javax.validation.ConstraintViolationException;
-import javax.validation.UnexpectedTypeException;
 
 import static io.youngwon.app.utils.ApiUtils.error;
 
@@ -45,10 +44,10 @@ public class GeneralExceptionHandler {
         return newResponse(e, HttpStatus.NOT_FOUND);
     }
 
-//    @ExceptionHandler(UnauthorizedException.class)
-//    public ResponseEntity<?> handleUnauthorizedException(Exception e) {
-//        return newResponse(e, HttpStatus.UNAUTHORIZED);
-//    }
+    @ExceptionHandler(UnauthorizedException.class)
+    public ResponseEntity<?> handleUnauthorizedException(Exception e) {
+        return newResponse(e, HttpStatus.UNAUTHORIZED);
+    }
 
     @ExceptionHandler({
             IllegalArgumentException.class,

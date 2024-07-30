@@ -1,10 +1,10 @@
 package io.youngwon.app.domain.users.service;
 
 import io.youngwon.app.config.errors.NotFoundException;
-import io.youngwon.app.domain.users.domain.User;
-import io.youngwon.app.domain.users.domain.UsersRepository;
-import io.youngwon.app.domain.users.dto.UserResponseDto;
-import io.youngwon.app.domain.users.dto.UserSaveRequestDto;
+import io.youngwon.app.domain.users.entity.User;
+import io.youngwon.app.domain.users.repository.UsersRepository;
+import io.youngwon.app.api.dto.UserResponseDto;
+import io.youngwon.app.api.dto.UserSaveRequestDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -22,7 +22,6 @@ public class UsersService implements UserDetailsService {
     private final UsersRepository usersRepository;
 
 
-
     @Transactional(readOnly = true)
     public UserResponseDto findById(Long id) {
         User user = usersRepository
@@ -33,10 +32,10 @@ public class UsersService implements UserDetailsService {
     }
 
 
-    public User login(){
+    public User login() {
         User user = usersRepository
                 .findById(1L)
-                .orElseThrow(() -> new NotFoundException("Could not found user for " ));
+                .orElseThrow(() -> new NotFoundException("Could not found user for "));
 
         return user;
     }
