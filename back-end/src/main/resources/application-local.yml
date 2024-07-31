@@ -18,9 +18,3 @@ spring:
   redis:
     host: localhost
     port: 6379
-jwt:
-  token:
-    header: Authorization
-    issuer: youngwonseo
-    client-secret: secret
-    expiry-seconds: 0

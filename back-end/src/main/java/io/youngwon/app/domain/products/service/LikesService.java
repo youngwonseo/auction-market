@@ -1,11 +1,9 @@
 package io.youngwon.app.domain.products.service;
 
 import io.youngwon.app.config.errors.NotFoundException;
-import io.youngwon.app.domain.products.entity.Like;
-import io.youngwon.app.domain.products.repository.LikesRepository;
 import io.youngwon.app.domain.products.entity.Product;
+import io.youngwon.app.domain.products.repository.LikesRepository;
 import io.youngwon.app.domain.products.repository.ProductsRepository;
-import io.youngwon.app.domain.users.entity.User;
 import io.youngwon.app.exception.NotImplementedException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

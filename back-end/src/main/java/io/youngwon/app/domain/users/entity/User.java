@@ -1,9 +1,8 @@
 package io.youngwon.app.domain.users.entity;
 
-import io.youngwon.app.security.Jwt;
+import io.youngwon.app.security.provider.LoginProvider;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
+import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -11,8 +10,14 @@ import jakarta.persistence.Table;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import java.time.LocalDateTime;
 
 
+@EntityListeners(AuditingEntityListener.class)
 @Getter
 @NoArgsConstructor
 @Entity
@@ -26,36 +31,29 @@ public class User {
     private String email;
     private String kakaoId;
     private String naverId;
-    @Enumerated(EnumType.STRING)
-    private Role role;
 
-    public User(Long id) {
-        this.id = id;
-    }
+    @CreatedDate
+    private LocalDateTime createdAt;
 
-    @Builder
-    public User(String name, String email, Role role, String vender, String socialId) {
-        this.name = name;
-        this.email = email;
-        this.role = role;
+    @LastModifiedDate
+    private LocalDateTime updatedAt;
 
-        if ("kakao".equals(vender)) {
-            this.kakaoId = socialId;
-        } else if ("naver".equals(vender)) {
-            this.naverId = socialId;
+    public User update(LoginProvider provider, String providerId, String name) {
+        switch (provider) {
+            case KAKAO -> this.kakaoId = providerId;
+            case NAVER -> this.naverId = providerId;
         }
-
-    }
-
-    public User update(String name) {
         this.name = name;
         return this;
     }
 
-
-    public String newJwt(Jwt jwt, String[] roles) {
-        Jwt.Claims claims = Jwt.Claims.of(id, name, roles);
-        return jwt.create(claims);
+    @Builder
+    public User(LoginProvider provider, String providerId, String name, String email) {
+        this.name = name;
+        this.email = email;
+        switch (provider) {
+            case KAKAO -> this.kakaoId = providerId;
+            case NAVER -> this.naverId = providerId;
+        }
     }
-
 }

@@ -1,6 +1,5 @@
 package io.youngwon.app.domain.products.entity;
 
-import io.youngwon.app.domain.products.entity.Product;
 import io.youngwon.app.api.dto.ProductRegisterRequest;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -10,7 +9,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
 
 import java.nio.file.Paths;
 import java.util.Base64;

@@ -1,4 +1,4 @@
-package io.youngwon.app.domain.categories.dto;
+package io.youngwon.app.api.dto;
 
 import io.youngwon.app.domain.products.entity.Categories;
 import lombok.Getter;

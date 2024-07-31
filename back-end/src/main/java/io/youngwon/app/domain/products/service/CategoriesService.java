@@ -1,12 +1,12 @@
 package io.youngwon.app.domain.products.service;
 
+import io.youngwon.app.api.dto.CategoriesListResponseDto;
+import io.youngwon.app.api.dto.CategoriesResponseDto;
+import io.youngwon.app.api.dto.CategoriesSaveRequestDto;
+import io.youngwon.app.api.dto.CategoriesUpdateRequestDto;
 import io.youngwon.app.config.errors.NotFoundException;
 import io.youngwon.app.domain.products.entity.Categories;
 import io.youngwon.app.domain.products.repository.CategoriesRepository;
-import io.youngwon.app.domain.categories.dto.CategoriesListResponseDto;
-import io.youngwon.app.domain.categories.dto.CategoriesResponseDto;
-import io.youngwon.app.domain.categories.dto.CategoriesSaveRequestDto;
-import io.youngwon.app.domain.categories.dto.CategoriesUpdateRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

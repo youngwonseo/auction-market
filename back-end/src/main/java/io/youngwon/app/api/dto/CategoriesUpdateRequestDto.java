@@ -1,4 +1,4 @@
-package io.youngwon.app.domain.categories.dto;
+package io.youngwon.app.api.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

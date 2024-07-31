@@ -1,6 +1,5 @@
 package io.youngwon.app.api.dto;
 
-import io.youngwon.app.domain.categories.dto.CategoryResponse;
 import io.youngwon.app.domain.products.entity.Product;
 import io.youngwon.app.domain.products.entity.ProductState;
 

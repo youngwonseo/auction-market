@@ -1,7 +1,6 @@
 package io.youngwon.app.api;
 
 
-import io.youngwon.app.security.WithMockJwtAuthentication;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.MethodOrderer;
@@ -91,7 +90,6 @@ public class ProductsApiControllerTest extends SpringMockMvcTestSupport {
 
     @Test
     @Order(2)
-    @WithMockJwtAuthentication
     @DisplayName("02. 상품 등록 실패 테스트 (존재하지 않는 카테고리 선택)")
     public void productSaveFailureTest1() throws Exception {
 
@@ -153,7 +151,6 @@ public class ProductsApiControllerTest extends SpringMockMvcTestSupport {
 
     @Test
     @Order(5)
-    @WithMockJwtAuthentication
     @DisplayName("05. 상품 목록 조회 테스트 (페이징)")
     public void findAllSuccessTest() throws Exception {
 //        this.mockMvc.perform(get("/api/products"));
@@ -163,7 +160,6 @@ public class ProductsApiControllerTest extends SpringMockMvcTestSupport {
 
     @Test
     @Order(6)
-    @WithMockJwtAuthentication
     @DisplayName("06. 단일 상품 조회 테스트")
     public void findByIdSuccessTest() throws Exception {
 //        this.mockMvc.perform(get("/api/products/{id}", 10))
@@ -200,7 +196,6 @@ public class ProductsApiControllerTest extends SpringMockMvcTestSupport {
 
     @Test
     @Order(7)
-    @WithMockJwtAuthentication
     @DisplayName("07. 단일 상품 실패 테스트 (존재하지 않는 ID)")
     public void findByIdFailureTest() throws Exception {
 

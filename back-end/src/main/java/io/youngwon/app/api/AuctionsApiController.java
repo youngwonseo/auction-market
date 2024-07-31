@@ -2,12 +2,11 @@ package io.youngwon.app.api;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.youngwon.app.api.dto.AuctionsEnterRequestDto;
 import io.youngwon.app.api.dto.AuctionResponse;
+import io.youngwon.app.api.dto.AuctionsEnterRequestDto;
 import io.youngwon.app.domain.auctions.service.AuctionsService;
-import io.youngwon.app.security.JwtAuthentication;
+import io.youngwon.app.exception.NotImplementedException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 import static io.youngwon.app.utils.ApiUtils.ApiResult;
-import static io.youngwon.app.utils.ApiUtils.success;
 
 
 @RequiredArgsConstructor
@@ -33,26 +31,8 @@ public class AuctionsApiController {
     @PatchMapping("/api/products/{id}/auctions/enter")
     public ApiResult<List<AuctionResponse>> enter(
             @PathVariable Long id,
-            @RequestBody AuctionsEnterRequestDto requestDto,
-            @AuthenticationPrincipal JwtAuthentication authentication) {
-
-        // 캐싱
-
-
-        // isFinish Check
-        List<AuctionResponse> result = auctionsService.enter(id, requestDto, authentication.id);
-
-
-        // 상품에 대한 auction 전체 정보 반환?
-        try {
-            String auction = objectMapper.writeValueAsString(result);
-//            producer.sendTo(auction);
-        } catch (Exception e) {
-
-        }
-
-
-        return success(result);
+            @RequestBody AuctionsEnterRequestDto requestDto) {
+        throw new NotImplementedException();
     }
 
 

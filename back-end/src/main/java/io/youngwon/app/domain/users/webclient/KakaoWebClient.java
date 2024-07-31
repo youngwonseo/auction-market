@@ -1,11 +1,6 @@
 package io.youngwon.app.domain.users.webclient;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import io.youngwon.app.domain.users.entity.Role;
-import io.youngwon.app.domain.users.entity.User;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpHeaders;
 
 @Slf4j
 public class KakaoWebClient {

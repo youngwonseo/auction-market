@@ -1,8 +1,5 @@
 package io.youngwon.app.utils.specification;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-
 public enum SearchOperation {
 
     EQUALITY, NEGATION, GREATER_THAN, LESS_THAN, LIKE, STARTS_WITH, ENDS_WITH, CONTAINS;

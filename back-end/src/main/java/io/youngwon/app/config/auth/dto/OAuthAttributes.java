@@ -1,6 +1,5 @@
 package io.youngwon.app.config.auth.dto;
 
-import io.youngwon.app.domain.users.entity.Role;
 import io.youngwon.app.domain.users.entity.User;
 import lombok.Builder;
 import lombok.Getter;
@@ -14,7 +13,6 @@ public class OAuthAttributes {
     private String nameAttributeKey;
     private String name;
     private String email;
-//    private String picture;
 
 
     @Builder
@@ -65,7 +63,6 @@ public class OAuthAttributes {
         return User.builder()
                 .name(name)
                 .email(email)
-                .role(Role.GUEST)
                 .build();
     }
 
