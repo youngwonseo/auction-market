@@ -10,6 +10,6 @@ public interface ProductsCustomRepository {
 
     List<Product> findAllForStartCheck(LocalDateTime now);
 
-    public List<Product> findAllForEndCheck(LocalDateTime now);
+    List<Product> findAllForEndCheck(LocalDateTime now);
 
 }

@@ -3,7 +3,7 @@ package io.youngwon.app.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.youngwon.app.api.dto.AuctionsEnterRequestDto;
-import io.youngwon.app.api.dto.AuctionsListResponseDto;
+import io.youngwon.app.api.dto.AuctionResponse;
 import io.youngwon.app.domain.auctions.service.AuctionsService;
 import io.youngwon.app.security.JwtAuthentication;
 import lombok.RequiredArgsConstructor;
@@ -31,7 +31,7 @@ public class AuctionsApiController {
     private final ObjectMapper objectMapper;
 
     @PatchMapping("/api/products/{id}/auctions/enter")
-    public ApiResult<List<AuctionsListResponseDto>> enter(
+    public ApiResult<List<AuctionResponse>> enter(
             @PathVariable Long id,
             @RequestBody AuctionsEnterRequestDto requestDto,
             @AuthenticationPrincipal JwtAuthentication authentication) {
@@ -40,7 +40,7 @@ public class AuctionsApiController {
 
 
         // isFinish Check
-        List<AuctionsListResponseDto> result = auctionsService.enter(id, requestDto, authentication.id);
+        List<AuctionResponse> result = auctionsService.enter(id, requestDto, authentication.id);
 
 
         // 상품에 대한 auction 전체 정보 반환?
@@ -57,8 +57,8 @@ public class AuctionsApiController {
 
 
     @PatchMapping("{productId}/auctions/{id}/cancel")
-    public ApiResult<List<AuctionsListResponseDto>> cancel(@PathVariable Long productId,
-                                                           @PathVariable Long id) {
+    public ApiResult<List<AuctionResponse>> cancel(@PathVariable Long productId,
+                                                   @PathVariable Long id) {
 
 
         auctionsService.cancel(productId, id);

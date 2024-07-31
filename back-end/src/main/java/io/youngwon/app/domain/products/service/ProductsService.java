@@ -1,22 +1,20 @@
 package io.youngwon.app.domain.products.service;
 
 
-import io.youngwon.app.api.dto.ProductsListResponseDto;
-import io.youngwon.app.api.dto.ProductsListStateResponseDto;
-import io.youngwon.app.api.dto.ProductsResponseDto;
-import io.youngwon.app.api.dto.ProductsSaveRequestDto;
+import io.youngwon.app.api.dto.ProductListResponse;
+import io.youngwon.app.api.dto.ProductResponse;
 import io.youngwon.app.api.dto.ProductsStateType;
-import io.youngwon.app.api.dto.ProductsUpdateRequestDto;
-import io.youngwon.app.config.errors.NotFoundException;
-import io.youngwon.app.domain.products.entity.Categories;
 import io.youngwon.app.domain.products.entity.Product;
+import io.youngwon.app.domain.products.entity.ProductState;
 import io.youngwon.app.domain.products.repository.ProductsRepository;
-import io.youngwon.app.exception.NotImplementedException;
+import io.youngwon.app.exception.BadRequestException;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,70 +22,36 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Service
 public class ProductsService {
-
     private final ProductsRepository productsRepository;
 
     @Transactional(readOnly = true)
-    public ProductsResponseDto findById(Long id, Long userId) {
+    public ProductResponse getOne(Long id, Long userId) {
         Product products = productsRepository
                 .findById(id)
-                .orElseThrow(() -> new NotFoundException("Could not found product for " + id));
+                .orElseThrow(EntityNotFoundException::new);
 
-        return new ProductsResponseDto(products, userId);
+        return ProductResponse.of(products, false);
     }
 
     @Transactional(readOnly = true)
-    public List<ProductsListResponseDto> findAll(
+    public List<ProductListResponse> getAll(
             final ProductsStateType type,
             final String value,
             final Pageable pageable,
             final Long userId) {
 
-
         return productsRepository
                 .findAll()
                 .stream()
-                .map(d -> new ProductsListResponseDto(d, userId))
+                .map(d -> ProductListResponse.of(d, false))
                 .collect(Collectors.toList());
-    }
-
-
-    @Transactional(readOnly = true)
-    public List<ProductsListResponseDto> findByCategories(Long id, Long userId) {
-        return productsRepository
-                .findByCategories(new Categories(id))
-                .stream()
-                .map(d -> new ProductsListResponseDto(d, userId))
-                .collect(Collectors.toList());
-    }
-
-    @Transactional(readOnly = true)
-    public List<ProductsListStateResponseDto> findAllForStartCheck(LocalDateTime now) {
-        throw new NotImplementedException();
-//        return productsRepository
-//                .findAllForStartCheck(now)
-//                .stream()
-//                .map(ProductsListStateResponseDto::new)
-//                .collect(Collectors.toList());
-    }
-
-
-    @Transactional(readOnly = true)
-    public List<ProductsListStateResponseDto> findAllForEndCheck(LocalDateTime now) {
-        throw new NotImplementedException();
-//        return productsRepository
-//                .findAllForEndCheck(now)
-//                .stream()
-//                .map(ProductsListStateResponseDto::new)
-//                .collect(Collectors.toList());
     }
 
     @Transactional
     public Long updateState(Long id, ProductsStateType type) {
-
         Product products = productsRepository
                 .findById(id)
-                .orElseThrow(() -> new NotFoundException("Could not found product for " + id));
+                .orElseThrow(EntityNotFoundException::new);
 
         if (type == ProductsStateType.SELLING) {
             products.onSale();
@@ -99,29 +63,67 @@ public class ProductsService {
     }
 
     @Transactional
-    public Long save(ProductsSaveRequestDto requestDto, Long userId) {
-        return productsRepository
-                .save(requestDto.toEntity(userId))
-                .getId();
+    public Long register(
+            final String title,
+            final String content,
+            final BigDecimal startPrice,
+            final Long categoryId,
+            final LocalDateTime startDateTime,
+            final LocalDateTime endDateTime
+    ) {
+        return productsRepository.save(
+                Product.builder()
+                        .title(title)
+                        .content(content)
+                        .startPrice(startPrice)
+                        .categoryId(categoryId)
+                        .startDateTime(startDateTime)
+                        .endDateTime(endDateTime)
+                        .build()
+        ).getId();
     }
 
     @Transactional
-    public Long update(Long id, ProductsUpdateRequestDto requestDto) {
-        Product products = productsRepository
-                .findById(id)
-                .orElseThrow(() -> new NotFoundException("Could not found product for " + id));
+    public Long update(
+            final Long id,
+            final String title,
+            final String content,
+            final BigDecimal startPrice,
+            final LocalDateTime startDateTime,
+            final LocalDateTime endDateTime) {
 
-        products.update(
-                requestDto.getTitle(),
-                requestDto.getContent(),
-                requestDto.getStartPrice()
+        Product product = productsRepository
+                .findById(id)
+                .orElseThrow(EntityNotFoundException::new);
+
+        // TODO 동시성 문제 확인
+        if (product.getState() != ProductState.WAIT) {
+            throw new BadRequestException(BadRequestException.ErrorType.NotWaitProduct);
+        }
+
+        product.update(
+                title,
+                content,
+                startPrice,
+                startDateTime,
+                endDateTime
         );
 
         return id;
     }
 
+    @Transactional
+    public Long delete(Long id) {
+        Product product = productsRepository
+                .findById(id)
+                .orElseThrow(EntityNotFoundException::new);
+        if (!product.delete()) {
+            throw new EntityNotFoundException();
+        }
+        return id;
+    }
 
-//    @Transactional
+    //    @Transactional
 //    public Long toFinish(Long id) {
 //        Products products = productsRepository
 //                .findById(id)
@@ -129,16 +131,6 @@ public class ProductsService {
 //        products.finish();
 //        return id;
 //    }
-
-    @Transactional
-    public Long delete(Long id) {
-        Product products = productsRepository
-                .findById(id)
-                .orElseThrow(() -> new NotFoundException("Could not found product for " + id));
-
-        productsRepository.delete(products);
-        return id;
-    }
 
     @Transactional
     public Boolean like(Long productId, Long userId) {

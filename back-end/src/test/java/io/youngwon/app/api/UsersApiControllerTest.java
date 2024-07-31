@@ -1,4 +1,4 @@
-package io.youngwon.app.web;
+package io.youngwon.app.api;
 
 import io.youngwon.app.domain.users.repository.UsersRepository;
 import org.junit.jupiter.api.DisplayName;

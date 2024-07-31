@@ -12,14 +12,12 @@ import jakarta.persistence.OneToMany;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
-@Getter
+
 @NoArgsConstructor
+@Getter
 @Entity
 public class Categories {
 
@@ -32,13 +30,6 @@ public class Categories {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parent")
     private Categories parent;
-
-    @CreatedDate
-    private LocalDateTime createdAt;
-
-    @LastModifiedDate
-    private LocalDateTime updatedAt;
-
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "parent")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)

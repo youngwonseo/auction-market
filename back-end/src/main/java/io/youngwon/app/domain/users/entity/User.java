@@ -22,15 +22,10 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String name;
-
     private String email;
-
-    private String kakao;
-
-    private String naver;
-
+    private String kakaoId;
+    private String naverId;
     @Enumerated(EnumType.STRING)
     private Role role;
 
@@ -45,9 +40,9 @@ public class User {
         this.role = role;
 
         if ("kakao".equals(vender)) {
-            this.kakao = socialId;
+            this.kakaoId = socialId;
         } else if ("naver".equals(vender)) {
-            this.naver = socialId;
+            this.naverId = socialId;
         }
 
     }

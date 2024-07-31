@@ -1,4 +1,4 @@
-package io.youngwon.app.web;
+package io.youngwon.app.api;
 
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.TestMethodOrder;

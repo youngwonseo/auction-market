@@ -1,101 +1,88 @@
-CREATE TABLE `auction`.`auctions`(
+CREATE TABLE `auction`.`products`
+(
     `id`                BIGINT NOT NULL AUTO_INCREMENT,
-    `is_cancel`         TINYINT(1),
-    `price`             BIGINT NOT NULL,
-    `participants_id`   BIGINT NOT NULL,
-    `products_id`       BIGINT NOT NULL,
+    `title`             VARCHAR(255) NOT NULL,
+    `content`           VARCHAR(255) NOT NULL,
+    `state`             VARCHAR(255) NOT NULL,
+    `start_date_time`   DATETIME NOT NULL,
+    `end_date_time`     DATETIME NOT NULL,
+    `start_price`       DECIMAL(10,2) NOT NULL,
+    `like_count`        BIGINT DEFAULT 0,
+    `view_count`        BIGINT DEFAULT 0,
+    `category_id`       BIGINT NOT NULL,
+    `created_by`        BIGINT NOT NULL,
     `created_at`        DATETIME NOT NULL,
     `updated_at`        DATETIME,
-    PRIMARY KEY (`id`)
+    `deleted_at`        DATETIME,
+    PRIMARY KEY (`id`),
+    KEY `ix_state` (`state`),
+    KEY `ix_category_id` (`category_id`),
+    KEY `ix_start_date_time_end_date_time` (`start_date_time`, `end_date_time`)
+);
+
+CREATE TABLE `auction`.`auctions`(
+    `id`                BIGINT NOT NULL AUTO_INCREMENT,
+    `price`             DECIMAL(10,2) NOT NULL,
+    `product_id`        BIGINT NOT NULL,
+    `created_by`        BIGINT NOT NULL,
+    `created_at`        DATETIME NOT NULL,
+    `updated_at`        DATETIME,
+    `deleted_at`        DATETIME,
+    PRIMARY KEY (`id`),
+    KEY `ix_product_id` (`product_id`)
 );
 
 CREATE TABLE `auction`.`categories`(
     `id`                BIGINT NOT NULL AUTO_INCREMENT,
-    `created_at`        DATETIME NOT NULL,
-    `updated_at`        DATETIME,
-    `title`             VARCHAR(255),
     `parent`            BIGINT,
+    `title`             VARCHAR(255),
     PRIMARY KEY (`id`)
 );
 
-CREATE TABLE `auction`.`categories_products`
-(
-    `categories_id`     BIGINT NOT NULL,
-    `products_id`       BIGINT NOT NULL,
-);
-
-CREATE TABLE `comments`
+CREATE TABLE `auction`.`files`
 (
     `id`                BIGINT NOT NULL AUTO_INCREMENT,
+    `filename`          VARCHAR(255) NOT NULL,
+    `path`              VARCHAR(255) NOT NULL,
+    `product_id`        BIGINT NOT NULL,
     `created_at`        DATETIME NOT NULL,
     `updated_at`        DATETIME,
-    `content`           VARCHAR(255),
-    `products_id`       BIGINT,
-    `writer_id`         BIGINT,
-    primary key (id)
-);
-
-create table files
-(
-    id         bigint not null auto_increment,
-    filename   varchar(255),
-    path       varchar(255),
-    products   bigint,
-    `created_at`        DATETIME NOT NULL,
-    `updated_at`        DATETIME,
-    primary key (id)
-);
-
-create table likes
-(
-    id         bigint not null auto_increment,
-    `created_at`        DATETIME NOT NULL,
-    products   bigint,
-    users      bigint,
-    PRIMARY KEY (`id`)
-);
-
-CREATE TABLE `auction`.`tagging`(
-    `id`            BIGINT NOT NULL AUTO_INCREMENT,
-    `product_id`   BIGINT NOT NULL,
-    `tag_id`        BIGINT NOT NULL,
     PRIMARY KEY (`id`),
-    UNIQUE KEY `ux_product_tag`(`product_id`, `tag_id`)
+    KEY `ix_product_id` (`product_id`)
 );
 
-CREATE TABLE `auction`.`products`
+CREATE TABLE `auction`.`likes`
 (
-    `id`              BIGINT NOT NULL AUTO_INCREMENT,
-    content         varchar(255),
-    end_date_time   datetime,
-    start_date_time datetime,
-    start_price     bigint,
-    state           varchar(255),
-    title           varchar(255),
-    view_count      integer default 0,
-    category_id   bigint,
-    seller_id       bigint,
+    `product_id`        BIGINT NOT NULL,
+    `created_by`        BIGINT NOT NULL,
     `created_at`        DATETIME NOT NULL,
-    `updated_at`        DATETIME,
-    PRIMARY KEY (`id`)
+    PRIMARY KEY (`product_id`, `created_by`)
+);
+
+CREATE TABLE `auction`.`tagging`
+(
+    `product_id`        BIGINT NOT NULL,
+    `tag_id`            BIGINT NOT NULL,
+    PRIMARY KEY (`product_id`, `tag_id`)
 );
 
 CREATE TABLE `auction`.`tag`
 (
-    `id`              BIGINT NOT NULL AUTO_INCREMENT,
-    title varchar(255),
+    `id`                BIGINT NOT NULL AUTO_INCREMENT,
+    `title`             VARCHAR(255) NOT NULL,
     PRIMARY KEY (`id`)
 );
 
 CREATE TABLE `auction`.`users`
 (
-    `id`              BIGINT NOT NULL AUTO_INCREMENT,
-    email      varchar(255),
-    kakao      varchar(255),
-    name       varchar(255),
-    naver      varchar(255),
-    role       varchar(255),
+    `id`                BIGINT NOT NULL AUTO_INCREMENT,
+    `email`             VARCHAR(255) NOT NULL,
+    `name`              VARCHAR(255) NOT NULL,
+    `kakao_id`          VARCHAR(255),
+    `naver_id`          VARCHAR(255),
+    `role`              VARCHAR(255),
     `created_at`        DATETIME NOT NULL,
     `updated_at`        DATETIME,
-    PRIMARY KEY (`id`)
+    PRIMARY KEY (`id`),
+    UNIQUE `ux_email`(`email`)
 );

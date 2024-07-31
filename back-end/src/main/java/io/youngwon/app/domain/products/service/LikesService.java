@@ -6,6 +6,7 @@ import io.youngwon.app.domain.products.repository.LikesRepository;
 import io.youngwon.app.domain.products.entity.Product;
 import io.youngwon.app.domain.products.repository.ProductsRepository;
 import io.youngwon.app.domain.users.entity.User;
+import io.youngwon.app.exception.NotImplementedException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,9 +26,7 @@ public class LikesService {
 
 
         // 이미 존재하면
-
-
-        return products.like(new Like(products, new User(userId)));
+        throw new NotImplementedException();
     }
 
 
@@ -36,14 +35,15 @@ public class LikesService {
         Product products = productsRepository
                 .findById(id)
                 .orElseThrow(() -> new NotFoundException("Could not found product for " + id));
+        throw new NotImplementedException();
 
         // 존재하지 않으면
 
-        Like likes = products.getLikes()
-                .stream().filter(like -> like.getUsers().getId() == userId).findFirst()
-                .orElseThrow(() -> new NotFoundException("Could not found likes for products " + id + " and user " + userId));
-
-        return products.unlike(likes);
+//        Like likes = products.getLikes()
+//                .stream().filter(like -> like.getUsers().getId() == userId).findFirst()
+//                .orElseThrow(() -> new NotFoundException("Could not found likes for products " + id + " and user " + userId));
+//
+//        return products.unlike(likes);
     }
 
 }

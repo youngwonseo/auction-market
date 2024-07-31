@@ -1,7 +1,7 @@
-package io.youngwon.app.domain.files;
+package io.youngwon.app.domain.products.entity;
 
 import io.youngwon.app.domain.products.entity.Product;
-import io.youngwon.app.api.dto.ProductsSaveRequestDto;
+import io.youngwon.app.api.dto.ProductRegisterRequest;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -34,10 +34,10 @@ public class Files {
     private String filename;
 
     @ManyToOne
-    @JoinColumn(name = "products")
+    @JoinColumn(name = "product_id")
     private Product products;
 
-    public Files(Product products, ProductsSaveRequestDto.Images image) {
+    public Files(Product products, ProductRegisterRequest.Images image) {
 
         // 파일 업로드
         this.path = "uploads";

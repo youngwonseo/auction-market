@@ -1,4 +1,4 @@
-package io.youngwon.app.web;
+package io.youngwon.app.api;
 
 import io.youngwon.app.AuctionMarketApplication;
 import org.junit.jupiter.api.extension.ExtendWith;

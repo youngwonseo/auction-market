@@ -1,6 +1,6 @@
 package io.youngwon.app.domain.products.service;
 
-import io.youngwon.app.api.dto.ProductsListResponseDto;
+import io.youngwon.app.api.dto.ProductListResponse;
 import io.youngwon.app.api.dto.ProductsStateType;
 import io.youngwon.app.domain.products.entity.Categories;
 import io.youngwon.app.exception.NotImplementedException;
@@ -12,17 +12,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
 @Service
-@Transactional(readOnly = true)
 public class ProductsSearchService {
 
-    public Page<ProductsListResponseDto> findAll(
+    @Transactional(readOnly = true)
+    public Page<ProductListResponse> getAll(
             final Categories categories,
             final String title,
             final String content,
             final ProductsStateType type,
-//            final Boolean own,
-//            final Boolean onLike,
-//            final Boolean onAuction,
             final Long userId,
             final Pageable pageable
     ) {

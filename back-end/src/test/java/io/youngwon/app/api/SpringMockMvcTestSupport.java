@@ -1,4 +1,4 @@
-package io.youngwon.app.web;
+package io.youngwon.app.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;

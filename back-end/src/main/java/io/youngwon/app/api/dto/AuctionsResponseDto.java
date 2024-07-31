@@ -3,9 +3,8 @@ package io.youngwon.app.api.dto;
 import io.youngwon.app.domain.auctions.entity.Auctions;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Getter
@@ -13,7 +12,7 @@ import java.time.LocalDateTime;
 public class AuctionsResponseDto {
 
     private Long id;
-    private Long price;
+    private BigDecimal price;
     private Long productsId;
     private LocalDateTime createdAt;
 

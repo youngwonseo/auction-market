@@ -7,6 +7,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.Builder;
 import lombok.Getter;
@@ -14,6 +15,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 
@@ -27,14 +29,14 @@ public class Auctions {
     private Long id;
 
     @ManyToOne
+    @JoinColumn(name = "product_id")
     private Product products;
 
     @ManyToOne
-    private User participants;
+    @JoinColumn(name = "created_by")
+    private User createdBy;
 
-    private Boolean isCancel;
-
-    private Long price;
+    private BigDecimal price;
 
     @CreatedDate
     private LocalDateTime createdAt;
@@ -42,16 +44,13 @@ public class Auctions {
     @LastModifiedDate
     private LocalDateTime updatedAt;
 
+    private LocalDateTime deletedAt;
+
     @Builder
-    public Auctions(Product products, Long price, User participants) {
+    public Auctions(Product products, BigDecimal price, User createdBy) {
         this.products = products;
         this.price = price;
-        this.participants = participants;
-        this.isCancel = false;
+        this.createdBy = createdBy;
 
-    }
-
-    public void cancel() {
-        this.isCancel = true;
     }
 }
