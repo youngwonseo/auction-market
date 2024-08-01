@@ -24,6 +24,10 @@ public class UserPrincipal implements OAuth2User, UserDetails {
         this.name = name;
     }
 
+    public Long getIdAsLong() {
+        return Long.valueOf(this.id);
+    }
+
     @Override
     public String getPassword() {
         return null;

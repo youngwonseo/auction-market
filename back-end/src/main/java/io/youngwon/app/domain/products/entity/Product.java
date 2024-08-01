@@ -28,10 +28,8 @@ import java.time.LocalDateTime;
 
 
 @EntityListeners(AuditingEntityListener.class)
-@Where(clause = "deleted_at IS NULL")
-@Builder
-@AllArgsConstructor
 @NoArgsConstructor
+@Where(clause = "deleted_at IS NULL")
 @Getter
 @Entity
 @Table(name = "products")
@@ -71,6 +69,17 @@ public class Product {
 //    @OneToMany(mappedBy = "products", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 //    private List<Auctions> auctions = new ArrayList<>();
 
+    @Builder
+    public Product(String title, String content, BigDecimal startPrice, Long categoryId, LocalDateTime startDateTime, LocalDateTime endDateTime, User createdBy) {
+        this.title = title;
+        this.content = content;
+        this.state = ProductState.WAIT;
+        this.startPrice = startPrice;
+        this.categoryId = categoryId;
+        this.startDateTime = startDateTime;
+        this.endDateTime = endDateTime;
+        this.createdBy = createdBy;
+    }
 
     public void update(String title,
                        String content,

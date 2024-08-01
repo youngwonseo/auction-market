@@ -7,44 +7,43 @@ import io.youngwon.app.api.dto.ProductsStateType;
 import io.youngwon.app.domain.products.entity.Product;
 import io.youngwon.app.domain.products.entity.ProductState;
 import io.youngwon.app.domain.products.repository.ProductsRepository;
+import io.youngwon.app.domain.users.entity.User;
+import io.youngwon.app.domain.users.repository.UsersRepository;
 import io.youngwon.app.exception.BadRequestException;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
-public class ProductsService {
+public class ProductService {
     private final ProductsRepository productsRepository;
+    private final UsersRepository usersRepository;
 
     @Transactional(readOnly = true)
     public ProductResponse getOne(Long id, Long userId) {
-        Product products = productsRepository
+        Product product = productsRepository
                 .findById(id)
                 .orElseThrow(EntityNotFoundException::new);
-
-        return ProductResponse.of(products, false);
+        return ProductResponse.of(product, false);
     }
 
     @Transactional(readOnly = true)
-    public List<ProductListResponse> getAll(
+    public Page<ProductListResponse> getAll(
             final ProductsStateType type,
-            final String value,
+            final String title,
+            final String content,
             final Pageable pageable,
             final Long userId) {
-
         return productsRepository
-                .findAll()
-                .stream()
-                .map(d -> ProductListResponse.of(d, false))
-                .collect(Collectors.toList());
+                .findAll(pageable)
+                .map(d -> ProductListResponse.of(d, false));
     }
 
     @Transactional
@@ -69,18 +68,19 @@ public class ProductsService {
             final BigDecimal startPrice,
             final Long categoryId,
             final LocalDateTime startDateTime,
-            final LocalDateTime endDateTime
-    ) {
+            final LocalDateTime endDateTime,
+            final Long createdBy) {
         return productsRepository.save(
-                Product.builder()
-                        .title(title)
-                        .content(content)
-                        .startPrice(startPrice)
-                        .categoryId(categoryId)
-                        .startDateTime(startDateTime)
-                        .endDateTime(endDateTime)
-                        .build()
-        ).getId();
+                        Product.builder()
+                                .title(title)
+                                .content(content)
+                                .startPrice(startPrice)
+                                .categoryId(categoryId)
+                                .startDateTime(startDateTime)
+                                .endDateTime(endDateTime)
+                                .createdBy(User.of(createdBy))
+                                .build())
+                .getId();
     }
 
     @Transactional

@@ -15,9 +15,9 @@ public record ProductRegisterRequest(
         @NotBlank String content,
         Images[] images,
         @NotNull BigDecimal startPrice,
-        @NotBlank LocalDateTime startDateTime,
-        @NotBlank LocalDateTime endDateTime,
-        @NotNull Long categories,
+        @NotNull LocalDateTime startDateTime,
+        @NotNull LocalDateTime endDateTime,
+        @NotNull Long category,
         String[] tags
 ) {
 

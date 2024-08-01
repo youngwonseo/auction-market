@@ -47,6 +47,14 @@ public class User {
         return this;
     }
 
+    public static User of(Long id) {
+        User user = new User();
+        user.id = id;
+        return user;
+    }
+
+
+
     @Builder
     public User(LoginProvider provider, String providerId, String name, String email) {
         this.name = name;
