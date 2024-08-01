@@ -1,5 +1,0 @@
-#cloud:
-#  config:
-#    env: default # optional
-#    label: master # optional
-#    uri: http://localhost:8888

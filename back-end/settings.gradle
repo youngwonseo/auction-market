@@ -3,3 +3,9 @@
  */
 
 rootProject.name = 'auction-market'
+include 'auction-core'
+include 'auction-api'
+include 'auction-consumer'
+include 'auction-batch'
+include 'auction-batch'
+
