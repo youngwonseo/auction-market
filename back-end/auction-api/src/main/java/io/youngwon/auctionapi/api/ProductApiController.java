@@ -8,7 +8,7 @@ import io.youngwon.auctionapi.api.dto.ProductUpdateRequest;
 import io.youngwon.auctionapi.api.dto.ProductsStateType;
 import io.youngwon.auctionapi.common.ApiUtils;
 import io.youngwon.auctionapi.security.UserPrincipal;
-import io.youngwon.auctioncore.domain.products.service.ProductService;
+import io.youngwon.auctioncore.products.service.ProductService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

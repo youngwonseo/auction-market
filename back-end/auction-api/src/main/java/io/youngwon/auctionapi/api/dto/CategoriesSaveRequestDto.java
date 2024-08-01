@@ -1,6 +1,6 @@
 package io.youngwon.auctionapi.api.dto;
 
-import io.youngwon.auctioncore.domain.products.entity.Categories;
+import io.youngwon.auctioncore.products.entity.Categories;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Builder;
 import lombok.Getter;

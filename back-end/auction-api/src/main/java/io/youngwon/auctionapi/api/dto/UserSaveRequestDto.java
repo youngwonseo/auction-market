@@ -1,6 +1,6 @@
 package io.youngwon.auctionapi.api.dto;
 
-import io.youngwon.auctioncore.domain.users.entity.User;
+import io.youngwon.auctioncore.users.entity.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 

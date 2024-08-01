@@ -1,8 +1,8 @@
 package io.youngwon.auctionapi.security;
 
 import com.jayway.jsonpath.JsonPath;
-import io.youngwon.auctioncore.domain.users.model.LoginProvider;
-import io.youngwon.auctioncore.domain.users.service.UserService;
+import io.youngwon.auctioncore.users.model.LoginProvider;
+import io.youngwon.auctioncore.users.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;

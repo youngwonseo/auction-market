@@ -1,8 +1,8 @@
 package io.youngwon.auctionapi.api.dto;
 
-import io.youngwon.auctioncore.domain.auctions.entity.Auctions;
-import io.youngwon.auctioncore.domain.products.entity.Product;
-import io.youngwon.auctioncore.domain.users.entity.User;
+import io.youngwon.auctioncore.auctions.entity.Auctions;
+import io.youngwon.auctioncore.products.entity.Product;
+import io.youngwon.auctioncore.users.entity.User;
 import lombok.Getter;
 import lombok.ToString;
 

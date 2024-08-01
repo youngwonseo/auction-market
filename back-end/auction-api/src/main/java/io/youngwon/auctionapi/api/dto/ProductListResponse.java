@@ -1,7 +1,7 @@
 package io.youngwon.auctionapi.api.dto;
 
-import io.youngwon.auctioncore.domain.products.entity.ProductState;
-import io.youngwon.auctioncore.domain.products.entity.Product;
+import io.youngwon.auctioncore.products.entity.ProductState;
+import io.youngwon.auctioncore.products.entity.Product;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

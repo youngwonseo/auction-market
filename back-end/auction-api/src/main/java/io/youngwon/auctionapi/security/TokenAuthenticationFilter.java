@@ -1,7 +1,6 @@
 package io.youngwon.auctionapi.security;
 
-import io.youngwon.auctioncore.domain.users.entity.User;
-import io.youngwon.auctioncore.domain.users.service.UserService;
+import io.youngwon.auctioncore.users.entity.User;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

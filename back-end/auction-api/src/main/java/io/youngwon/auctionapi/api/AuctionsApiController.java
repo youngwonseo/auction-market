@@ -6,7 +6,7 @@ import io.youngwon.auctioncore.exception.NotImplementedException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.youngwon.auctionapi.api.dto.AuctionResponse;
 import io.youngwon.auctionapi.api.dto.AuctionsEnterRequestDto;
-import io.youngwon.auctioncore.domain.auctions.service.AuctionsService;
+import io.youngwon.auctioncore.auctions.service.AuctionsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;

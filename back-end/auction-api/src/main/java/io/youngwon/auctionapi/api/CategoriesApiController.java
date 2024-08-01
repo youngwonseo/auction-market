@@ -3,7 +3,7 @@ package io.youngwon.auctionapi.api;
 
 import io.youngwon.auctionapi.api.dto.CategoriesListResponseDto;
 import io.youngwon.auctionapi.common.ApiUtils;
-import io.youngwon.auctioncore.domain.products.service.CategoriesService;
+import io.youngwon.auctioncore.products.service.CategoriesService;
 import io.youngwon.auctioncore.exception.NotImplementedException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
