@@ -92,11 +92,6 @@ public class Product {
         this.endDateTime = endDateTime;
     }
 
-    public Auctions addAuctions(Auctions auction) {
-//        this.auctions.add(auction);
-        return auction;
-    }
-
     public void onSale() {
         this.state = ProductState.SELLING;
     }
@@ -105,16 +100,10 @@ public class Product {
         this.state = ProductState.FINISHED;
     }
 
-    public Integer like(Like likes) {
-//        this.likes.add(likes);
-//        return this.likes.size();
-        throw new NotImplementedException();
-    }
-
-    public Integer unlike(Like likes) {
-        throw new NotImplementedException();
-//        this.likes.remove(likes);
-//        return this.likes.size();
+    public boolean validateForAuction(LocalDateTime now) {
+        return this.state == ProductState.SELLING &&
+                this.startDateTime.isBefore(now) &&
+                this.endDateTime.isAfter(now);
     }
 
     public void increaseViewCount() {

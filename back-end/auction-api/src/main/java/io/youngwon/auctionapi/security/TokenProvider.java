@@ -39,6 +39,7 @@ public class TokenProvider {
         try {
             SecretKey secretKey = Keys.hmacShaKeyFor(secret.getBytes());
             Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token);
+            return true;
         } catch (JwtException e) {
             log.warn(e.getMessage());
         }

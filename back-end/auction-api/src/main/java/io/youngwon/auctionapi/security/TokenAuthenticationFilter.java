@@ -1,6 +1,7 @@
 package io.youngwon.auctionapi.security;
 
 import io.youngwon.auctioncore.users.entity.User;
+import io.youngwon.auctioncore.users.service.UserService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -23,7 +24,7 @@ import java.util.List;
 public class TokenAuthenticationFilter extends OncePerRequestFilter {
 
     private final TokenProvider tokenProvider;
-//    private final UserService userService;
+    private final UserService userService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
@@ -33,7 +34,7 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
 
         if (StringUtils.hasText(token) && tokenProvider.validateToken(token)) {
             String userId = tokenProvider.extractUserId(token);
-            User user = null;//userService.getById(Long.valueOf(userId));
+            User user = userService.getById(Long.valueOf(userId));
 
             UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
                     new UserPrincipal(userId, user.getEmail(), user.getName()), null, List.of());

@@ -13,6 +13,7 @@ public class BadRequestException extends RuntimeException {
     }
 
     public enum ErrorType {
-        NotWaitProduct
+        NotWaitProduct,
+        InvalidBid
     }
 }

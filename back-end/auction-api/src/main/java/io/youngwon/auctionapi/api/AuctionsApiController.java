@@ -1,53 +1,32 @@
 package io.youngwon.auctionapi.api;
 
 
+import io.youngwon.auctionapi.api.dto.AuctionsBidRequest;
 import io.youngwon.auctionapi.common.ApiUtils;
-import io.youngwon.auctioncore.exception.NotImplementedException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import io.youngwon.auctionapi.api.dto.AuctionResponse;
-import io.youngwon.auctionapi.api.dto.AuctionsEnterRequestDto;
-import io.youngwon.auctioncore.auctions.service.AuctionsService;
+import io.youngwon.auctionapi.security.UserPrincipal;
+import io.youngwon.auctioncore.auctions.service.AuctionService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import static io.youngwon.auctionapi.common.ApiUtils.success;
 
 
 @RequiredArgsConstructor
 @RestController
 public class AuctionsApiController {
 
-    private final AuctionsService auctionsService;
+    private final AuctionService auctionsService;
 
-    // 큐
-//    private final Producer producer;
-
-    private final ObjectMapper objectMapper;
-
-    @PatchMapping("/api/products/{id}/auctions/enter")
-    public ApiUtils.ApiResult<List<AuctionResponse>> enter(
+    @PostMapping("/api/v1/products/{id}/auctions/bid")
+    public ApiUtils.ApiResult<Boolean> bid(
             @PathVariable Long id,
-            @RequestBody AuctionsEnterRequestDto requestDto) {
-        throw new NotImplementedException();
+            @RequestBody AuctionsBidRequest request,
+            @AuthenticationPrincipal UserPrincipal principal) {
+
+        return success(auctionsService.bid(id, request.price(), principal.getIdAsLong()));
     }
-
-
-    @PatchMapping("{productId}/auctions/{id}/cancel")
-    public ApiUtils.ApiResult<List<AuctionResponse>> cancel(@PathVariable Long productId,
-                                                            @PathVariable Long id) {
-
-        return null;
-    }
-
-
-//    @GetMapping("auctions")
-//    public Long delete(){
-//        auctionsService.deleteAll();
-//        return 0L;
-//    }
-
-
 }
